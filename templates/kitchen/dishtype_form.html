@@ -3,18 +3,20 @@
 
 {% block content %}
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>{% if object %}Edit Dish Type{% else %}Add New Dish Type{% endif %}</h5>
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-transparent border-bottom">
+                    <h5 class="mb-0">{% if object %}Edit Dish Type{% else %}Add New Dish Type{% endif %}</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" novalidate>
                         {% csrf_token %}
                         {{ form|crispy }}
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                             <a href="{% url 'kitchen:dish-type-list' %}" class="btn btn-outline-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">{% if object %}Update{% else %}Create{% endif %}</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-1"></i> {% if object %}Update{% else %}Create{% endif %}
+                            </button>
                         </div>
                     </form>
                 </div>

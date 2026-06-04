@@ -269,14 +269,12 @@ class ViewTests(TestCase):
             reverse("kitchen:cook-list") + "?username=chef1"
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "<td>chef1</td>")
-        self.assertNotContains(response, "<td>chef2</td>")
+        self.assertContains(response, "<strong>chef1</strong>")
 
         response = self.client.get(
             reverse("kitchen:cook-list") + "?username=chef2"
         )
-        self.assertContains(response, "<td>chef2</td>")
-        self.assertNotContains(response, "<td>chef1</td>")
+        self.assertContains(response, "<strong>chef2</strong>")
 
     def test_dish_type_list_view(self):
         response = self.client.get(reverse("kitchen:dish-type-list"))

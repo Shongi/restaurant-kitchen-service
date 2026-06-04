@@ -1,39 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="mb-4">Dish Types</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Dish Types</h1>
+        <a href="{% url 'kitchen:dish-type-create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Add Dish Type
+        </a>
+    </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-            <a href="{% url 'kitchen:dish-type-create' %}" class="btn btn-success">Add New Dish Type</a>
-        </div>
-        <div>
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-0">
             {% include 'includes/search_form.html' %}
         </div>
     </div>
 
     {% if dish_type_list %}
-        <table class="table table-striped table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for dish_type in dish_type_list %}
-                    <tr>
-                        <td>{{ dish_type.name }}</td>
-                        <td>
-                            <a href="{% url 'kitchen:dish-type-update' dish_type.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                            <a href="{% url 'kitchen:dish-type-delete' dish_type.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
+        <div class="card border-0 shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col" class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dish_type in dish_type_list %}
+                            <tr>
+                                <td>
+                                    <strong>{{ dish_type.name }}</strong>
+                                </td>
+                                <td class="text-end">
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{% url 'kitchen:dish-type-update' dish_type.pk %}" class="btn btn-outline-secondary" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="{% url 'kitchen:dish-type-delete' dish_type.pk %}" class="btn btn-outline-danger" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% include 'includes/pagination.html' %}
     {% else %}
-        <p class="text-muted">No dish types found.</p>
+        <div class="card border-0 shadow-sm text-center py-5">
+            <div class="card-body">
+                <i class="bi bi-tags display-1 text-muted mb-3"></i>
+                <h4 class="text-muted">No dish types found</h4>
+                <p class="text-muted">Create categories for your dishes.</p>
+                <a href="{% url 'kitchen:dish-type-create' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i> Add Dish Type
+                </a>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

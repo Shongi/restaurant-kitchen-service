@@ -68,6 +68,7 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
         context["search_form"] = DishTypesNameSearchForm(
             initial={"name": name}
         )
+        context["clear_url"] = reverse_lazy("kitchen:dish-type-list")
         return context
 
 
@@ -108,6 +109,7 @@ class DishListView(LoginRequiredMixin, generic.ListView):
 
         name = self.request.GET.get("name", "")
         context["search_form"] = DishesNameSearchForm(initial={"name": name})
+        context["clear_url"] = reverse_lazy("kitchen:dish-list")
         return context
 
 
@@ -154,6 +156,7 @@ class CookListView(LoginRequiredMixin, generic.ListView):
         context["search_form"] = CooksUsernameSearchForm(
             initial={"username": username}
         )
+        context["clear_url"] = reverse_lazy("kitchen:cook-list")
         return context
 
 
@@ -200,6 +203,7 @@ class IngredientListView(LoginRequiredMixin, generic.ListView):
         context["search_form"] = IngredientsNameSearchForm(
             initial={"name": name}
         )
+        context["clear_url"] = reverse_lazy("kitchen:ingredient-list")
         return context
 
 

@@ -3,55 +3,84 @@
 {% block content %}
     <h1 class="mb-4">Restaurant Kitchen Service Dashboard</h1>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Cooks</h5>
-                    <p class="card-text fs-3">{{ num_cooks }}</p>
-                    <a href="{% url 'kitchen:cook-list' %}" class="btn btn-primary">View All</a>
+    <div class="row g-4 mb-4">
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                        <i class="bi bi-people-fill text-primary fs-3"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Cooks</h6>
+                        <h3 class="mb-0">{{ num_cooks }}</h3>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'kitchen:cook-list' %}" class="btn btn-sm btn-outline-primary w-100">View All</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Dishes</h5>
-                    <p class="card-text fs-3">{{ num_dishes }}</p>
-                    <a href="{% url 'kitchen:dish-list' %}" class="btn btn-primary">View All</a>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-success bg-opacity-10 rounded-circle p-3 me-3">
+                        <i class="bi bi-egg-fried text-success fs-3"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Dishes</h6>
+                        <h3 class="mb-0">{{ num_dishes }}</h3>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'kitchen:dish-list' %}" class="btn btn-sm btn-outline-success w-100">View All</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Dish Types</h5>
-                    <p class="card-text fs-3">{{ num_dish_types }}</p>
-                    <a href="{% url 'kitchen:dish-type-list' %}" class="btn btn-primary">View All</a>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-info bg-opacity-10 rounded-circle p-3 me-3">
+                        <i class="bi bi-tags-fill text-info fs-3"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Dish Types</h6>
+                        <h3 class="mb-0">{{ num_dish_types }}</h3>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'kitchen:dish-type-list' %}" class="btn btn-sm btn-outline-info w-100">View All</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Ingredients</h5>
-                    <p class="card-text fs-3">{{ num_ingredients }}</p>
-                    <a href="{% url 'kitchen:ingredient-list' %}" class="btn btn-primary">View All</a>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-warning bg-opacity-10 rounded-circle p-3 me-3">
+                        <i class="bi bi-box-seam-fill text-warning fs-3"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Ingredients</h6>
+                        <h3 class="mb-0">{{ num_ingredients }}</h3>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'kitchen:ingredient-list' %}" class="btn btn-sm btn-outline-warning w-100">View All</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Recent Activity</h5>
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-transparent border-bottom">
+                    <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Recent Activity</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">You have visited this page:
-                        {{ num_visits }} time{{ num_visits|pluralize }}.
-                    </p>
+                    <p class="text-muted mb-0">You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
                 </div>
             </div>
         </div>
