@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
 
 from .models import Cook, DishType, Dish, Ingredient
 from .forms import (
@@ -15,8 +16,13 @@ from .forms import (
     DishForm,
     DishesNameSearchForm,
     IngredientForm,
-    IngredientsNameSearchForm
+    IngredientsNameSearchForm,
 )
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("login")
 
 
 @login_required
@@ -80,10 +86,6 @@ class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
 class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = DishType
     success_url = reverse_lazy("kitchen:dish-type-list")
-
-
-class DishTypeDetailView(LoginRequiredMixin, generic.DetailView):
-    model = DishType
 
 
 class DishListView(LoginRequiredMixin, generic.ListView):
@@ -220,7 +222,7 @@ class IngredientDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class IngredientDetailView(LoginRequiredMixin, generic.DetailView):
     model = Ingredient
-    queryset = Ingredient.objects.all().prefetch_related("dish_set")
+    queryset = Ingredient.objects.all().prefetch_related("dishes")
 
 
 @login_required

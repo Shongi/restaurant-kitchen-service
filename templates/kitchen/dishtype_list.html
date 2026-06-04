@@ -25,7 +25,6 @@
                     <tr>
                         <td>{{ dish_type.name }}</td>
                         <td>
-                            <a href="{% url 'kitchen:dish-type-detail' dish_type.pk %}" class="btn btn-sm btn-outline-primary">View</a>
                             <a href="{% url 'kitchen:dish-type-update' dish_type.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
                             <a href="{% url 'kitchen:dish-type-delete' dish_type.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
                         </td>
