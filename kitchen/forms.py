@@ -30,9 +30,12 @@ class DishTypeForm(forms.ModelForm):
 class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
-        fields = ["name", "description", "price", "dish_type", "cooks"]
+        fields = [
+            "name", "description", "price", "dish_type", "cooks", "ingredients"
+        ]
         widgets = {
             "cooks": forms.CheckboxSelectMultiple,
+            "ingredients": forms.CheckboxSelectMultiple,
         }
 
 
