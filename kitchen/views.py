@@ -24,6 +24,7 @@ def index(request):
     num_cooks = Cook.objects.count()
     num_dishes = Dish.objects.count()
     num_dish_types = DishType.objects.count()
+    num_ingredients = Ingredient.objects.count()
 
     num_visits = request.session.get("num_visits", 0) + 1
     request.session["num_visits"] = num_visits
@@ -32,6 +33,7 @@ def index(request):
         "num_cooks": num_cooks,
         "num_dishes": num_dishes,
         "num_dish_types": num_dish_types,
+        "num_ingredients": num_ingredients,
         "num_visits": num_visits,
     }
 
@@ -41,6 +43,7 @@ def index(request):
 class DishTypeListView(LoginRequiredMixin, generic.ListView):
     model = DishType
     paginate_by = 5
+    context_object_name = "dish_type_list"
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -77,6 +80,10 @@ class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
 class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = DishType
     success_url = reverse_lazy("kitchen:dish-type-list")
+
+
+class DishTypeDetailView(LoginRequiredMixin, generic.DetailView):
+    model = DishType
 
 
 class DishListView(LoginRequiredMixin, generic.ListView):
@@ -209,6 +216,11 @@ class IngredientUpdateView(LoginRequiredMixin, generic.UpdateView):
 class IngredientDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Ingredient
     success_url = reverse_lazy("kitchen:ingredient-list")
+
+
+class IngredientDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Ingredient
+    queryset = Ingredient.objects.all().prefetch_related("dish_set")
 
 
 @login_required

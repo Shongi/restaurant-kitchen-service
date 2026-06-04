@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1>{{ dish.name }}</h1>
+            <p class="text-muted">Dish Type: {{ dish.dish_type.name }}</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{% url 'kitchen:dish-update' dish.pk %}" class="btn btn-sm btn-outline-secondary me-2">Edit</a>
+            <a href="{% url 'kitchen:dish-delete' dish.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header>
+                    <h5>Description</h5>
+                </div>
+                <div class="card-body>
+                    <p>{{ dish.description }}</p>
+                </div>
+            </div>
+
+            <div class="card mb-4>
+                <div class="card-header>
+                    <h5>Price</h5>
+                </div>
+                <div class="card-body>
+                    <p class="fs-3">${{ dish.price }}</p>
+                </div>
+            </div>
+
+            <div class="card mb-4>
+                <div class="card-header>
+                    <h5>Cooks</h5>
+                </div>
+                <div class="card-body>
+                    {% if dish.cooks.all %}
+                        <ul class="list-group list-group-flush>
+                            {% for cook in dish.cooks.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center>
+                                    {{ cook.username }} ({{ cook.years_of_experience }} years)
+                                    <span class="badge bg-primary rounded-pill>
+                                        <a href="{% url 'kitchen:cook-detail' cook.pk %}" class="text-decoration-none text-white">View</a>
+                                    </span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">No cooks assigned to this dish.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card mb-4>
+                <div class="card-header>
+                    <h5>Ingredients</h5>
+                </div>
+                <div class="card-body>
+                    {% if dish.ingredients.all %}
+                        <ul class="list-group list-group-flush>
+                            {% for ingredient in dish.ingredients.all %}
+                                <li class="list-group-item>{{ ingredient.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">No ingredients assigned to this dish.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4>
+            <div class="card text-white bg-dark mb-4>
+                <div class="card-body>
+                    <h5 class="card-title>Assign to Me</h5>
+                    <p class="card-text>
+                        Assign this dish to your profile as a cook.
+                    </p>
+                    <a href="{% url 'kitchen:toggle-dish-assign' dish.pk %}" class="btn btn-primary>
+                        {% if request.user in dish.cooks.all %}
+                            Remove Assignment
+                        {% else %}
+                            Assign to Me
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

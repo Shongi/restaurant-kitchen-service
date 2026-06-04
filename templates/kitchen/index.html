@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="mb-4">Restaurant Kitchen Service Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Cooks</h5>
+                    <p class="card-text fs-3">{{ num_cooks }}</p>
+                    <a href="{% url 'kitchen:cook-list' %}" class="btn btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Dishes</h5>
+                    <p class="card-text fs-3">{{ num_dishes }}</p>
+                    <a href="{% url 'kitchen:dish-list' %}" class="btn btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Dish Types</h5>
+                    <p class="card-text fs-3">{{ num_dish_types }}</p>
+                    <a href="{% url 'kitchen:dish-type-list' %}" class="btn btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Ingredients</h5>
+                    <p class="card-text fs-3">{{ num_ingredients }}</p>
+                    <a href="{% url 'kitchen:ingredient-list' %}" class="btn btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">You have visited this page:
+                        {{ num_visits }} time{{ num_visits|pluralize }}.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

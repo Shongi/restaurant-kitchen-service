@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1>{{ dish_type.name }}</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{% url 'kitchen:dish-type-update' dish_type.pk %}" class="btn btn-sm btn-outline-secondary me-2">Edit</a>
+            <a href="{% url 'kitchen:dish-type-delete' dish_type.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Description</h5>
+                </div>
+                <div class="card-body">
+                    <p>This dish type is used to categorize dishes in the restaurant kitchen service.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-dark mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Actions</h5>
+                    <p class="card-text">
+                        Manage this dish type.
+                    </p>
+                    <a href="{% url 'kitchen:dish-type-update' dish_type.pk %}" class="btn btn-outline-light me-2">Edit</a>
+                    <a href="{% url 'kitchen:dish-type-delete' dish_type.pk %>" class="btn btn-outline-light">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
