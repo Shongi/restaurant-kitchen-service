@@ -6,6 +6,9 @@ from django.urls import reverse
 class Cook(AbstractUser):
     years_of_experience = models.IntegerField(default=0)
 
+    class Meta:
+        ordering = ["username"]
+
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.username})"
 
@@ -33,6 +36,9 @@ class Dish(models.Model):
         "Ingredient", related_name="dishes", blank=True
     )
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 
@@ -42,6 +48,9 @@ class Dish(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=255, unique=True)
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

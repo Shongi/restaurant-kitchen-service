@@ -2,16 +2,16 @@
 
 {% block content %}
     <div class="row justify-content-center">
-        <div class="col-md-6>
-            <div class="card mb-4>
-                <div class="card-header>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
                     <h5>Delete Dish</h5>
                 </div>
-                <div class="card-body>
+                <div class="card-body">
                     <p>Are you sure you want to delete "{{ dish.name }}"?</p>
                     <form method="post">
                         {% csrf_token %}
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="{% url 'kitchen:dish-list' %}" class="btn btn-outline-secondary">Cancel</a>
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </div>

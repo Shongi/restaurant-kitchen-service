@@ -516,3 +516,75 @@ class ViewTests(TestCase):
         self.assertFalse(
             Ingredient.objects.filter(id=self.ingredient2.id).exists()
         )
+
+    def test_cook_ordering(self):
+        cooks = Cook.objects.filter(
+            username__in=[self.cook1.username, self.cook2.username]
+        )
+        self.assertEqual(
+            list(cooks),
+            sorted(cooks, key=lambda c: c.username)
+        )
+
+    def test_dish_ordering(self):
+        dishes = Dish.objects.all()
+        self.assertEqual(
+            list(dishes),
+            sorted(dishes, key=lambda d: d.name)
+        )
+
+    def test_ingredient_ordering(self):
+        ingredients = Ingredient.objects.all()
+        self.assertEqual(
+            list(ingredients),
+            sorted(ingredients, key=lambda i: i.name)
+        )
+
+    def test_cook_detail_view(self):
+        response = self.client.get(
+            reverse("kitchen:cook-detail", kwargs={"pk": self.cook1.pk})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.cook1.username)
+
+    def test_dish_detail_view(self):
+        response = self.client.get(
+            reverse("kitchen:dish-detail", kwargs={"pk": self.dish1.pk})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.dish1.name)
+
+    def test_ingredient_detail_view(self):
+        response = self.client.get(
+            reverse(
+                "kitchen:ingredient-detail",
+                kwargs={"pk": self.ingredient1.pk},
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.ingredient1.name)
+
+    def test_cook_pagination(self):
+        for i in range(3, 8):
+            Cook.objects.create_user(
+                username=f"pagi-chef{i}", password="secret"
+            )
+        response = self.client.get(reverse("kitchen:cook-list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["is_paginated"])
+        self.assertEqual(len(response.context["cook_list"]), 5)
+        response2 = self.client.get(reverse("kitchen:cook-list") + "?page=2")
+        self.assertEqual(response2.status_code, 200)
+        self.assertContains(response2, "pagi-chef6")
+        self.assertContains(response2, "pagi-chef7")
+
+    def test_cook_pagination_preserves_search_params(self):
+        for i in range(6):
+            Cook.objects.create_user(
+                username=f"pgsearch{i}", password="secret"
+            )
+        response = self.client.get(
+            reverse("kitchen:cook-list") + "?username=pgsearch&page=2"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "username=pgsearch")
